@@ -50,5 +50,5 @@ function isActive(to: string) {
 		</main>
 	</div>
 
-	<BackToTop />
+	<!-- <BackToTop /> -->
 </template>

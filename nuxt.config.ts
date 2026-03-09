@@ -16,7 +16,7 @@ export default defineNuxtConfig({
 	},
 
 	modules: [
-		"@nuxt/content",
+		// "@nuxt/content", // we don't need it right now
 		"@nuxt/eslint",
 		"@nuxt/hints",
 		"@nuxt/image",
@@ -47,6 +47,13 @@ export default defineNuxtConfig({
 		 */
 		componentDir: "@/components/ui",
 	},
+
+	components: [
+		{
+			path: "~/components/renders",
+			pathPrefix: false,
+		},
+	],
 
 	hooks: {
 		"prerender:routes"({ routes }) {
