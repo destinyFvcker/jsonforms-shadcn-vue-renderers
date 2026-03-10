@@ -11,98 +11,65 @@ const renderers = Object.freeze([
 ]);
 
 const schema = {
+	definitions: {
+		address: {
+			type: "object",
+			title: "Address",
+			properties: {
+				street_address: {
+					type: "string",
+				},
+				city: {
+					type: "string",
+				},
+				state: {
+					type: "string",
+				},
+			},
+			required: ["street_address", "city", "state"],
+		},
+		user: {
+			type: "object",
+			title: "User",
+			properties: {
+				name: {
+					type: "string",
+				},
+				mail: {
+					type: "string",
+				},
+			},
+			required: ["name", "mail"],
+		},
+	},
+	type: "object",
 	properties: {
-		name: {
-			type: "string",
-			minLength: 1,
-			description: "The task's name",
-		},
-		description: {
-			title: "Long Description",
-			type: "string",
-		},
-		done: {
-			type: "boolean",
-		},
-		dueDate: {
-			type: "string",
-			format: "date",
-			description: "The task's due date",
-		},
-		rating: {
-			type: "number",
-			maximum: 5,
-		},
-		recurrence: {
-			type: "string",
-			enum: ["Never", "Daily", "Weekly", "Monthly"],
-		},
-		recurrenceInterval: {
-			type: "integer",
-			description: "Days until recurrence",
+		addressOrUser: {
+			oneOf: [
+				{
+					$ref: "#/definitions/address",
+				},
+				{
+					$ref: "#/definitions/user",
+				},
+			],
 		},
 	},
 };
 
 const uischema = {
-	type: "HorizontalLayout",
+	type: "VerticalLayout",
 	elements: [
 		{
-			type: "VerticalLayout",
-			elements: [
-				{
-					type: "Control",
-					scope: "#/properties/name",
-					// options: {
-					// 	format: "date",
-					// },
-				},
-				{
-					type: "Control",
-					scope: "#/properties/description",
-					options: {
-						multi: true,
-					},
-				},
-				{
-					type: "Control",
-					scope: "#/properties/done",
-					options: {
-						toggle: true,
-					},
-				},
-			],
-		},
-		{
-			type: "VerticalLayout",
-			elements: [
-				{
-					type: "Control",
-					scope: "#/properties/dueDate",
-				},
-				{
-					type: "Control",
-					scope: "#/properties/rating",
-				},
-				{
-					type: "Control",
-					scope: "#/properties/recurrence",
-				},
-				{
-					type: "Control",
-					scope: "#/properties/recurrenceInterval",
-				},
-			],
+			type: "Control",
+			label: "Basic Information",
+			scope: "#/properties/addressOrUser",
 		},
 	],
 };
 
 const data = ref({
-	name: "Send email to Adrian",
-	description: "Confirm if you have passed the subject\nHereby ...",
-	done: true,
-	recurrence: "Daily",
-	rating: 3,
+	addressOrUser: {},
 });
 
 const onChange = (event: JsonFormsChangeEvent) => {
@@ -128,6 +95,17 @@ provide("styles", myStyles);
 </template>
 
 <style>
+#app {
+	font-family: Avenir, Helvetica, Arial, sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	text-align: center;
+	color: #2c3e50;
+	margin-top: 60px;
+	margin-left: 120px;
+	margin-right: 120px;
+}
+
 .mylabel {
 	color: darkslategrey;
 }
