@@ -42,16 +42,25 @@ const showAsterisk = computed(() => Boolean(props.required && !props.appliedOpti
 <template>
 	<div v-show="visible" :class="styles.control.root" :data-control-id="id">
 		<!-- TODO 查找这里的style应该从哪里进行指定 -->
-		<Label :for="id + '-input'" :class="[styles.control.label, required ? styles.control.required : '']">
+		<Label
+			:for="id + '-input'"
+			:class="[styles.control.label, required ? styles.control.required : '', 'pb-1 text-xs']"
+		>
 			{{ label }}
-			<span v-if="showAsterisk" :class="styles.control.asterisk"> * </span>
+			<span v-if="showAsterisk" :class="styles.control.asterisk"> (必填) </span>
 		</Label>
 
 		<div :class="styles.control.wrapper">
 			<slot />
 		</div>
 
-		<div :class="errors ? styles.control.error : styles.control.description">
+		<div
+			:class="[
+				'text-sm',
+				errors ? styles.control.error : styles.control.description,
+				errors ? 'text-red-500' : 'text-muted-foreground',
+			]"
+		>
 			{{ errors ? errors : showDescription ? description : null }}
 		</div>
 	</div>

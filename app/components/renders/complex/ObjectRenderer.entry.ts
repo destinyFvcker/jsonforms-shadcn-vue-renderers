@@ -4,5 +4,5 @@ import { default as controlRenderer } from "./ObjectRenderer.vue";
 
 export const entry: JsonFormsRendererRegistryEntry = {
 	renderer: controlRenderer,
-	tester: rankWith(4, isObjectControl),
+	tester: rankWith(0, isObjectControl), // TODO
 };

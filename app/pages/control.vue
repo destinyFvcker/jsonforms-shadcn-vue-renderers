@@ -11,48 +11,35 @@ const renderers = Object.freeze([
 ]);
 
 const schema = {
-	definitions: {
-		address: {
-			type: "object",
-			title: "Address",
-			properties: {
-				street_address: {
-					type: "string",
-				},
-				city: {
-					type: "string",
-				},
-				state: {
-					type: "string",
-				},
-			},
-			required: ["street_address", "city", "state"],
-		},
-		user: {
-			type: "object",
-			title: "User",
-			properties: {
-				name: {
-					type: "string",
-				},
-				mail: {
-					type: "string",
-				},
-			},
-			required: ["name", "mail"],
-		},
-	},
-	type: "object",
 	properties: {
-		addressOrUser: {
-			oneOf: [
-				{
-					$ref: "#/definitions/address",
-				},
-				{
-					$ref: "#/definitions/user",
-				},
-			],
+		name: {
+			type: "string",
+			minLength: 1,
+			description: "The task's name",
+		},
+		description: {
+			title: "Long Description",
+			type: "string",
+		},
+		done: {
+			type: "boolean",
+		},
+		dueDate: {
+			type: "string",
+			format: "date",
+			description: "The task's due date",
+		},
+		rating: {
+			type: "integer",
+			maximum: 5,
+		},
+		recurrence: {
+			type: "string",
+			enum: ["Never", "Daily", "Weekly", "Monthly"],
+		},
+		recurrenceInterval: {
+			type: "integer",
+			description: "Days until recurrence",
 		},
 	},
 };
@@ -61,15 +48,55 @@ const uischema = {
 	type: "HorizontalLayout",
 	elements: [
 		{
-			type: "Control",
-			label: "Basic Information",
-			scope: "#/properties/addressOrUser",
+			type: "VerticalLayout",
+			elements: [
+				{
+					type: "Control",
+					scope: "#/properties/name",
+				},
+				{
+					type: "Control",
+					scope: "#/properties/description",
+					options: {
+						multi: true,
+					},
+				},
+				{
+					type: "Control",
+					scope: "#/properties/done",
+				},
+			],
+		},
+		{
+			type: "VerticalLayout",
+			elements: [
+				{
+					type: "Control",
+					scope: "#/properties/dueDate",
+				},
+				{
+					type: "Control",
+					scope: "#/properties/rating",
+				},
+				{
+					type: "Control",
+					scope: "#/properties/recurrence",
+				},
+				{
+					type: "Control",
+					scope: "#/properties/recurrenceInterval",
+				},
+			],
 		},
 	],
 };
 
 const data = ref({
-	addressOrUser: {},
+	name: "Send email to Adrian",
+	description: "Confirm if you have passed the subject\nHereby ...",
+	done: true,
+	recurrence: "Daily",
+	rating: 3,
 });
 
 const onChange = (event: JsonFormsChangeEvent) => {
@@ -84,10 +111,8 @@ provide("styles", myStyles);
 </script>
 
 <template>
-	<div class="px-auto">
-		<NuxtImg src="logo.png" alt="Vue logo" />
-		<h1>JSON Forms Vue 3</h1>
-	</div>
+	<img alt="Vue logo" src="./assets/logo.png" />
+	<h1>JSON Forms Vue 3</h1>
 	<div class="myform">
 		<json-forms :data="data" :renderers="renderers" :schema="schema" :uischema="uischema" @change="onChange" />
 	</div>
