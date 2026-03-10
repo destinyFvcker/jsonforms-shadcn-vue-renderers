@@ -8,6 +8,20 @@ import {
 import { DispatchRenderer, rendererProps, useJsonFormsOneOfControl } from "@jsonforms/vue";
 import { useCombinatorTranslations, useShadcnControl } from "../utils";
 import { isEmpty } from "lodash";
+import { computed, nextTick, ref, type ComputedRef, useTemplateRef } from "vue";
+import {
+	AlertDialog,
+	AlertDialogAction,
+	AlertDialogCancel,
+	AlertDialogContent,
+	AlertDialogDescription,
+	AlertDialogFooter,
+	AlertDialogHeader,
+	AlertDialogTitle,
+} from "../../ui/alert-dialog";
+import { Button } from "../../ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../ui/tabs";
 
 const props = defineProps({
 	...rendererProps<ControlElement>(),
@@ -119,7 +133,7 @@ function openNewTab(newIndex: number): void {
 	<AlertDialog
 		v-model:open="dialog"
 		@update:open="
-			(open) => {
+			(open: boolean) => {
 				if (!open) cancel();
 			}
 		"

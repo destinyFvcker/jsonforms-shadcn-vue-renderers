@@ -3,6 +3,7 @@ import { type ControlElement } from "@jsonforms/core";
 import { rendererProps, useJsonFormsControl, useJsonFormsOneOfEnumControl } from "@jsonforms/vue";
 import ControlWrapper from "./ControlWrapper.vue";
 import { useShadcnControl } from "../utils";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "../../ui/select";
 
 const props = defineProps({
 	...rendererProps<ControlElement>(),
@@ -16,7 +17,7 @@ const { control, controlWrapper, isFocused, appliedOptions, styles, onChange } =
 <template>
 	<ControlWrapper v-bind="controlWrapper" :is-focused="isFocused" :applied-options="appliedOptions" :styles="styles">
 		<Select
-			@update:open="(open) => (isFocused = open)"
+			@update:open="(open: boolean) => (isFocused = open)"
 			:multiple="false"
 			:model-value="control.data"
 			@update:model-value="onChange"

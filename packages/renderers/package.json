@@ -1,0 +1,46 @@
+{
+  "name": "jsonforms-shadcn-vue-renderers",
+  "version": "0.1.2",
+  "description": "Shadcn-based JSON Forms renderers for Vue.",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/packages/renderers/src/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/packages/renderers/src/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "vite build && vue-tsc --project tsconfig.json --declaration --emitDeclarationOnly --outDir dist",
+    "prepublishOnly": "npm run build"
+  },
+  "peerDependencies": {
+    "@jsonforms/core": "^3.7.0",
+    "@jsonforms/vue": "^3.7.0",
+    "vue": "^3.5.0"
+  },
+  "dependencies": {
+    "@internationalized/date": "^3.12.0",
+    "@jsonforms/vue-vanilla": "^3.7.0",
+    "@vueuse/core": "^14.2.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lodash": "^4.17.23",
+    "lucide-vue-next": "^0.577.0",
+    "reka-ui": "^2.8.0",
+    "tailwind-merge": "^3.4.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^6.0.1",
+    "typescript": "^5.9.3",
+    "vite": "^7.1.10",
+    "vue-tsc": "^3.1.1"
+  }
+}

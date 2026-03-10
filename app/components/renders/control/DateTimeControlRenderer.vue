@@ -6,6 +6,12 @@ import ControlWrapper from "./ControlWrapper.vue";
 import { DateFormatter, getLocalTimeZone, parseDate, today } from "@internationalized/date";
 import { ChevronDownIcon } from "lucide-vue-next";
 import { useShadcnControl } from "../utils";
+import { computed } from "vue";
+import { Button } from "../../ui/button";
+import { Calendar } from "../../ui/calendar";
+import { Input } from "../../ui/input";
+import { Label } from "../../ui/label";
+import { Popover, PopoverContent, PopoverTrigger } from "../../ui/popover";
 
 const props = defineProps({
 	...rendererProps<ControlElement>(),
@@ -98,7 +104,7 @@ const handleTimeUpdate = (value: string | number) => {
 							:default-placeholder="defaultPlaceholder"
 							layout="month-and-year"
 							initial-focus
-							@update:model-value="(value) => handleDateUpdate(value, close)"
+							@update:model-value="(value: { toString: () => string } | undefined) => handleDateUpdate(value, close)"
 						/>
 					</PopoverContent>
 				</Popover>

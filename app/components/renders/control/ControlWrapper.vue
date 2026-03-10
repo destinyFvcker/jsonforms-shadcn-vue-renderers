@@ -2,6 +2,7 @@
 import { isDescriptionHidden } from "@jsonforms/core";
 import { type Options, type Styles } from "@jsonforms/vue-vanilla";
 import { computed } from "vue";
+import { Label } from "../../ui/label";
 
 const props = withDefaults(
 	defineProps<{

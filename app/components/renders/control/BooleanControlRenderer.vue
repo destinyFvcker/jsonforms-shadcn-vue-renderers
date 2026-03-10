@@ -3,6 +3,8 @@ import { type ControlElement } from "@jsonforms/core";
 import { rendererProps, useJsonFormsControl, type RendererProps } from "@jsonforms/vue";
 import ControlWrapper from "./ControlWrapper.vue";
 import { useShadcnControl } from "../utils";
+import { Checkbox } from "../../ui/checkbox";
+import { Label } from "../../ui/label";
 
 const props = defineProps({
 	...rendererProps<ControlElement>(),

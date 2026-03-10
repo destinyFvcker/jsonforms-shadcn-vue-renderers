@@ -2,6 +2,7 @@
 import { type Layout } from "@jsonforms/core";
 import { DispatchRenderer, rendererProps, useJsonFormsLayout } from "@jsonforms/vue";
 import { useVanillaLayout } from "@jsonforms/vue-vanilla";
+import { computed } from "vue";
 
 const props = defineProps({
 	...rendererProps<Layout>(),

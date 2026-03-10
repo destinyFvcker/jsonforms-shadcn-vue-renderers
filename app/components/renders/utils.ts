@@ -5,6 +5,7 @@ import {
 	type JsonFormsSubStates,
 } from "@jsonforms/core";
 import { useVanillaControl } from "@jsonforms/vue-vanilla";
+import { computed, inject, type ComputedRef } from "vue";
 
 export const useShadcnControl = <I extends { control: any; handleChange: any }>(
 	input: I,

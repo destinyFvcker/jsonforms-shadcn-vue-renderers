@@ -33,3 +33,6 @@ test-results/
 # IDE
 .vscode/
 .cursor/
+
+# pnpm
+.pnpm-store/

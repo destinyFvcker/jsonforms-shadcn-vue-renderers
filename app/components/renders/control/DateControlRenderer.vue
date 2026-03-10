@@ -2,10 +2,14 @@
 import { type ControlElement } from "@jsonforms/core";
 import { CalendarIcon } from "lucide-vue-next";
 import { rendererProps, useJsonFormsControl } from "@jsonforms/vue";
+import { computed } from "vue";
 import ControlWrapper from "./ControlWrapper.vue";
 import { useShadcnControl } from "../utils";
-import { cn } from "~/lib/utils";
+import { cn } from "../../../lib/utils";
 import { DateFormatter, getLocalTimeZone, parseDate, today } from "@internationalized/date";
+import { Button } from "../../ui/button";
+import { Calendar } from "../../ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "../../ui/popover";
 
 const props = defineProps({
 	...rendererProps<ControlElement>(),
@@ -43,7 +47,7 @@ const df = new DateFormatter("zh-CN", {
 					layout="month-and-year"
 					initial-focus
 					@update:model-value="
-						(value) => {
+						(value: { toDate: (tz: string) => Date } | undefined) => {
 							onChange(value?.toDate(getLocalTimeZone()).toISOString().slice(0, 10));
 							close();
 						}
