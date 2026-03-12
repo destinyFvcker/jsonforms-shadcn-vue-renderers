@@ -3,5 +3,5 @@ import controlRenderer from "./BooleanToggleControlRenderer.vue";
 
 export const entry: JsonFormsRendererRegistryEntry = {
 	renderer: controlRenderer,
-	tester: rankWith(3, and(isBooleanControl, optionIs("toggle", true))),
+	tester: rankWith(3, isBooleanControl),
 };

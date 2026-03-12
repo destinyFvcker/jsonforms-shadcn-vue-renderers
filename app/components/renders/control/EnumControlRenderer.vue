@@ -25,7 +25,7 @@ const { control, controlWrapper, isFocused, appliedOptions, styles, onChange } =
 			<SelectTrigger :class="['w-fit', styles.control.select]">
 				<SelectValue placeholder="请选择……" />
 			</SelectTrigger>
-			<SelectContent>
+			<SelectContent align="end" side="right">
 				<SelectGroup>
 					<SelectItem v-for="option in control.options" :value="option.value">{{ option.label }}</SelectItem>
 				</SelectGroup>

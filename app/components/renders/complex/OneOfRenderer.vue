@@ -99,7 +99,7 @@ function openNewTab(newIndex: number): void {
 					:key="`${control.path}-${indexOneOfRenderInfos.length}-${oneOfIndex}`"
 					:disabled="!control.enabled"
 				>
-					{{ oneOfRenderInfo.label }} {{ oneOfIndex }}
+					{{ oneOfRenderInfo.label }}
 				</TabsTrigger>
 			</TabsList>
 			<TabsContent

@@ -1,5 +1,5 @@
 import { entry as StringControlRendererEntry } from "./StringControlRenderer.entry";
-import { entry as BooleanControlRendererEntry } from "./BooleanControlRenderer.entry";
+// import { entry as BooleanControlRendererEntry } from "./BooleanControlRenderer.entry";
 import { entry as MultiStringControlRendererEntry } from "./MultiStringControlRenderer.entry";
 import { entry as BooleanToggleControlRendererEntry } from "./BooleanToggleControlRenderer.entry";
 import { entry as DateControlRendererEntry } from "./DateControlRenderer.entry";
@@ -15,7 +15,7 @@ export const shadcnControlRenderers = [
 	NumberControlRendererEntry,
 	IntegerControlRendererEntry,
 	BooleanToggleControlRendererEntry,
-	BooleanControlRendererEntry,
+	// BooleanControlRendererEntry,
 	DateControlRendererEntry,
 	DateTimeControlRendererEntry,
 	EnumControlRendererEntry,
