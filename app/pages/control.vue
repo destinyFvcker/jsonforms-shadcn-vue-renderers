@@ -47,47 +47,47 @@ const schema = {
 const uischema = {
 	type: "HorizontalLayout",
 	elements: [
+		// {
+		// 	type: "VerticalLayout",
+		// 	elements: [
 		{
-			type: "VerticalLayout",
-			elements: [
-				{
-					type: "Control",
-					scope: "#/properties/name",
-				},
-				{
-					type: "Control",
-					scope: "#/properties/description",
-					options: {
-						multi: true,
-					},
-				},
-				{
-					type: "Control",
-					scope: "#/properties/done",
-				},
-			],
+			type: "Control",
+			scope: "#/properties/name",
 		},
 		{
-			type: "VerticalLayout",
-			elements: [
-				{
-					type: "Control",
-					scope: "#/properties/dueDate",
-				},
-				{
-					type: "Control",
-					scope: "#/properties/rating",
-				},
-				{
-					type: "Control",
-					scope: "#/properties/recurrence",
-				},
-				{
-					type: "Control",
-					scope: "#/properties/recurrenceInterval",
-				},
-			],
+			type: "Control",
+			scope: "#/properties/description",
+			options: {
+				multi: true,
+			},
 		},
+		{
+			type: "Control",
+			scope: "#/properties/done",
+		},
+		// 	],
+		// },
+		// {
+		// 	type: "VerticalLayout",
+		// 	elements: [
+		{
+			type: "Control",
+			scope: "#/properties/dueDate",
+		},
+		{
+			type: "Control",
+			scope: "#/properties/rating",
+		},
+		{
+			type: "Control",
+			scope: "#/properties/recurrence",
+		},
+		{
+			type: "Control",
+			scope: "#/properties/recurrenceInterval",
+		},
+		// 	],
+		// },
 	],
 };
 

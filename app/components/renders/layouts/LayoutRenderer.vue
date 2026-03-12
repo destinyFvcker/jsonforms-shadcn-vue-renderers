@@ -23,7 +23,7 @@ const layoutClassObject = computed(() => {
 
 	<div
 		v-if="layout.visible"
-		:class="[layoutClassObject.root, layout.direction === 'row' ? 'space-y-2' : 'grid grid-cols-2 gap-2']"
+		:class="[layoutClassObject.root, layout.direction === 'column' ? 'space-y-2' : 'grid grid-cols-2 gap-2']"
 	>
 		<div
 			v-for="(element, index) in layout.uischema.elements"
