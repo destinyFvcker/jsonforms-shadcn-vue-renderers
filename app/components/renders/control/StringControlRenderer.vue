@@ -19,7 +19,7 @@ const { control, controlWrapper, isFocused, appliedOptions, styles, onChange } =
 		<Input
 			:id="control.id + '-input'"
 			:class="styles.control.input"
-			:value="control.data"
+			:model-value="control.data"
 			:disabled="!control.enabled"
 			:autofocus="appliedOptions.focus"
 			:placeholder="appliedOptions.placeholder"
