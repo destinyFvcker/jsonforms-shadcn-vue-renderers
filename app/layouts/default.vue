@@ -5,7 +5,7 @@ import {
 	NavigationMenuLink,
 	NavigationMenuList,
 } from "@/components/ui/navigation-menu";
-import { Columns3Cog, Database, Hand, IdCard, User, TestTube, ScanFaceIcon } from "lucide-vue-next";
+import { Columns3Cog, Database, Hand, IdCard, User, TestTube, ScanFaceIcon } from "@lucide/vue";
 import { cn } from "@/lib/utils";
 
 const route = useRoute();

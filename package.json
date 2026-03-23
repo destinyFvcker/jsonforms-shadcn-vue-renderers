@@ -22,6 +22,7 @@
 		"@jsonforms/core": "^3.7.0",
 		"@jsonforms/vue": "^3.7.0",
 		"@jsonforms/vue-vanilla": "^3.7.0",
+		"@lucide/vue": "1.0.0-rc.0",
 		"@nuxt/a11y": "1.0.0-alpha.1",
 		"@nuxt/content": "3.11.0",
 		"@nuxt/eslint": "1.13.0",
@@ -50,9 +51,9 @@
 		"vue-sonner": "^2.0.9"
 	},
 	"devDependencies": {
-		"@types/lodash": "^4.17.24",
 		"@nuxtjs/tailwindcss": "7.0.0-beta.1",
 		"@playwright/test": "^1.58.1",
+		"@types/lodash": "^4.17.24",
 		"@vitest/coverage-v8": "^4.0.18",
 		"@vue/test-utils": "^2.4.6",
 		"happy-dom": "^20.5.0",

@@ -4,7 +4,7 @@ import { type ControlElement } from "@jsonforms/core";
 import { rendererProps, useJsonFormsControl } from "@jsonforms/vue";
 import ControlWrapper from "./ControlWrapper.vue";
 import { DateFormatter, getLocalTimeZone, parseDate, today } from "@internationalized/date";
-import { ChevronDownIcon } from "lucide-vue-next";
+import { ChevronDownIcon } from "@lucide/vue";
 import { useShadcnControl } from "../utils";
 import { computed } from "vue";
 import { Button } from "../../ui/button";
@@ -104,7 +104,9 @@ const handleTimeUpdate = (value: string | number) => {
 							:default-placeholder="defaultPlaceholder"
 							layout="month-and-year"
 							initial-focus
-							@update:model-value="(value: { toString: () => string } | undefined) => handleDateUpdate(value, close)"
+							@update:model-value="
+								(value: { toString: () => string } | undefined) => handleDateUpdate(value, close)
+							"
 						/>
 					</PopoverContent>
 				</Popover>

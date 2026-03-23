@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { type ControlElement } from "@jsonforms/core";
-import { CalendarIcon } from "lucide-vue-next";
+import { CalendarIcon } from "@lucide/vue";
 import { rendererProps, useJsonFormsControl } from "@jsonforms/vue";
 import { computed } from "vue";
 import ControlWrapper from "./ControlWrapper.vue";

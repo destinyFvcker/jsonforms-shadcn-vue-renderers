@@ -7,6 +7,7 @@ import { entry as DateTimeControlRendererEntry } from "./DateTimeControlRenderer
 import { entry as OneOfEnumControlRendererEntry } from "./OneOfEnumControlRenderer.entry";
 import { entry as EnumControlRendererEntry } from "./EnumControlRenderer.entry";
 import { entry as NumberControlRendererEntry } from "./NumberControlRenderer.entry";
+import { entry as NullControlRendererEntry } from "./NullControlRenderer.entry";
 import { entry as IntegerControlRendererEntry } from "./IntegerControlRenderer.entry";
 
 export const shadcnControlRenderers = [
@@ -20,4 +21,5 @@ export const shadcnControlRenderers = [
 	DateTimeControlRendererEntry,
 	EnumControlRendererEntry,
 	OneOfEnumControlRendererEntry,
+	NullControlRendererEntry,
 ];
