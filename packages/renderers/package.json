@@ -1,6 +1,6 @@
 {
   "name": "jsonforms-shadcn-vue-renderers",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Shadcn-based JSON Forms renderers for Vue.",
   "license": "MIT",
   "type": "module",
