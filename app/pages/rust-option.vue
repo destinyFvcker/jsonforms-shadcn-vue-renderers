@@ -1,4 +1,3 @@
-s
 <script setup lang="ts">
 import { ref, provide } from "vue";
 import { JsonForms, type JsonFormsChangeEvent } from "@jsonforms/vue";
@@ -12,61 +11,53 @@ const renderers = Object.freeze([
 ]);
 
 const schema = {
-	definitions: {
-		address: {
-			type: "object",
-			title: "Address",
-			properties: {
-				street_address: {
-					type: "string",
-				},
-				city: {
-					type: "string",
-				},
-				state: {
-					type: "string",
-				},
-			},
-			required: ["street_address", "city", "state"],
-		},
-		user: {
-			type: "object",
-			title: "User",
-			properties: {
-				name: {
-					type: "string",
-				},
-				mail: {
-					type: "string",
-				},
-			},
-			required: ["name", "mail"],
-		},
-	},
+	$schema: "http://json-schema.org/draft-07/schema#",
+	title: "MyStruct",
 	type: "object",
 	properties: {
-		addressOrUser: {
-			oneOf: [
+		myBool: {
+			type: "boolean",
+		},
+		myNullableEnum: {
+			anyOf: [
 				{
-					$ref: "#/definitions/address",
+					type: "null",
 				},
 				{
-					$ref: "#/definitions/user",
+					$ref: "#/definitions/MyEnum",
+				},
+			],
+			default: null,
+		},
+		myNumber: {
+			type: "integer",
+			format: "int32",
+		},
+	},
+	additionalProperties: false,
+	required: ["myNumber", "myBool"],
+	definitions: {
+		MyEnum: {
+			anyOf: [
+				{
+					type: "string",
+				},
+				{
+					type: "object",
+					properties: {
+						floats: {
+							type: "array",
+							items: {
+								type: "number",
+								format: "float",
+							},
+						},
+					},
+					required: ["floats"],
 				},
 			],
 		},
 	},
-};
-
-const uischema = {
-	type: "HorizontalLayout",
-	elements: [
-		{
-			type: "Control",
-			label: "Basic Information",
-			scope: "#/properties/addressOrUser",
-		},
-	],
 };
 
 const data = ref({
@@ -85,14 +76,23 @@ provide("styles", myStyles);
 </script>
 
 <template>
-	<div class="px-auto">
-		<NuxtImg src="logo.png" alt="Vue logo" />
-		<h1>JSON Forms Vue 3</h1>
+	<div>
+		<Card>
+			<CardHeader>
+				<CardTitle>test</CardTitle>
+				<CardDescription>test schemas</CardDescription>
+			</CardHeader>
+			<CardContent>
+				<div class="myform">
+					<json-forms :data="data" :renderers="renderers" :schema="schema" @change="onChange" />
+				</div>
+			</CardContent>
+			<CardFooter>
+				<p>Card Footer</p>
+			</CardFooter>
+		</Card>
+		<pre>{{ data }}</pre>
 	</div>
-	<div class="myform">
-		<json-forms :data="data" :renderers="renderers" :schema="schema" :uischema="uischema" @change="onChange" />
-	</div>
-	<pre>{{ data }}</pre>
 </template>
 
 <style>

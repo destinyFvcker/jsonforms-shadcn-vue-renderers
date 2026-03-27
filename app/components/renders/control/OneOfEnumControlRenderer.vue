@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { type ControlElement } from "@jsonforms/core";
-import { rendererProps, useJsonFormsControl, useJsonFormsOneOfEnumControl } from "@jsonforms/vue";
+import type { ControlElement } from "@jsonforms/core";
+import { rendererProps, useJsonFormsOneOfEnumControl } from "@jsonforms/vue";
 import ControlWrapper from "./ControlWrapper.vue";
 import { useShadcnControl } from "../utils";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "../../ui/select";
@@ -17,9 +17,9 @@ const { control, controlWrapper, isFocused, appliedOptions, styles, onChange } =
 <template>
 	<ControlWrapper v-bind="controlWrapper" :is-focused="isFocused" :applied-options="appliedOptions" :styles="styles">
 		<Select
-			@update:open="(open: boolean) => (isFocused = open)"
-			:multiple="false"
 			:model-value="control.data"
+			:multiple="false"
+			@update:open="(open: boolean) => (isFocused = open)"
 			@update:model-value="onChange"
 		>
 			<SelectTrigger :class="['w-fit', styles.control.select]">
@@ -27,7 +27,9 @@ const { control, controlWrapper, isFocused, appliedOptions, styles, onChange } =
 			</SelectTrigger>
 			<SelectContent align="end" side="top">
 				<SelectGroup>
-					<SelectItem v-for="option in control.options" :value="option.value">{{ option.label }}</SelectItem>
+					<SelectItem v-for="option in control.options" :key="option.value" :value="option.value">{{
+						option.label
+					}}</SelectItem>
 				</SelectGroup>
 			</SelectContent>
 		</Select>

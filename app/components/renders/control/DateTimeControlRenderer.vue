@@ -1,6 +1,6 @@
 <!-- HACK maybe have timezone problem -->
 <script setup lang="ts">
-import { type ControlElement } from "@jsonforms/core";
+import type { ControlElement } from "@jsonforms/core";
 import { rendererProps, useJsonFormsControl } from "@jsonforms/vue";
 import ControlWrapper from "./ControlWrapper.vue";
 import { DateFormatter, getLocalTimeZone, parseDate, today } from "@internationalized/date";

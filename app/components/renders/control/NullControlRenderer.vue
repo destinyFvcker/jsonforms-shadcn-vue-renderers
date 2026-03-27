@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type ControlElement } from "@jsonforms/core";
+import type { ControlElement } from "@jsonforms/core";
 import { rendererProps, useJsonFormsControl } from "@jsonforms/vue";
 import { CircleSlashIcon } from "@lucide/vue";
 import { Empty } from "../../ui/empty";

@@ -1,12 +1,7 @@
 <script setup lang="ts">
-import {
-	createCombinatorRenderInfos,
-	createDefaultValue,
-	type CombinatorSubSchemaRenderInfo,
-	type ControlElement,
-} from "@jsonforms/core";
+import { createDefaultValue, type CombinatorSubSchemaRenderInfo, type ControlElement } from "@jsonforms/core";
 import { DispatchRenderer, rendererProps, useJsonFormsOneOfControl } from "@jsonforms/vue";
-import { useCombinatorTranslations, useShadcnControl } from "../utils";
+import { createCombinatorRenderInfos, useCombinatorTranslations, useShadcnControl } from "../utils";
 import { isEmpty } from "lodash";
 import { computed, nextTick, ref, type ComputedRef, useTemplateRef } from "vue";
 import {
@@ -26,9 +21,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../ui/tabs";
 const props = defineProps({
 	...rendererProps<ControlElement>(),
 });
-const { control, controlWrapper, isFocused, appliedOptions, styles, onChange } = useCombinatorTranslations(
-	useShadcnControl(useJsonFormsOneOfControl(props)),
-);
+const { control, onChange } = useCombinatorTranslations(useShadcnControl(useJsonFormsOneOfControl(props)));
 
 const selectedIndex = ref(control.value.indexOfFittingSchema || 0);
 const selectIndex = ref(selectedIndex.value);
@@ -41,7 +34,6 @@ const indexOneOfRenderInfos: ComputedRef<
 	})[]
 > = computed(() => {
 	const result = createCombinatorRenderInfos(
-		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		control.value.schema.oneOf!,
 		control.value.rootSchema,
 		"oneOf",
@@ -95,21 +87,23 @@ function openNewTab(newIndex: number): void {
 			<TabsList>
 				<TabsTrigger
 					v-for="(oneOfRenderInfo, oneOfIndex) in indexOneOfRenderInfos"
-					:value="oneOfIndex"
 					:key="`${control.path}-${indexOneOfRenderInfos.length}-${oneOfIndex}`"
+					:value="oneOfIndex"
 					:disabled="!control.enabled"
 				>
-					{{ oneOfRenderInfo.label }}
+					{{ oneOfRenderInfo.schema.title ? oneOfRenderInfo.schema.title : `选项 ${oneOfIndex + 1}` }}
 				</TabsTrigger>
 			</TabsList>
 			<TabsContent
 				v-for="(oneOfRenderInfo, oneOfIndex) in indexOneOfRenderInfos"
-				:value="oneOfIndex"
 				:key="`${control.path}-${indexOneOfRenderInfos.length}-${oneOfIndex}`"
+				:value="oneOfIndex"
 			>
 				<Card>
 					<CardHeader>
-						<CardTitle>{{ oneOfRenderInfo.label }}</CardTitle>
+						<CardTitle>{{
+							oneOfRenderInfo.schema.title ? oneOfRenderInfo.schema.title : `选项 ${oneOfIndex + 1}`
+						}}</CardTitle>
 						<CardDescription v-if="oneOfRenderInfo.schema.description">
 							{{ oneOfRenderInfo.schema.description }}
 						</CardDescription>
@@ -147,7 +141,7 @@ function openNewTab(newIndex: number): void {
 			</AlertDialogHeader>
 			<AlertDialogFooter>
 				<AlertDialogCancel as-child>
-					<Button @click="cancel" variant="outline">取消</Button>
+					<Button variant="outline" @click="cancel">取消</Button>
 				</AlertDialogCancel>
 				<AlertDialogAction as-child>
 					<Button @click="confirmAction">确认</Button>

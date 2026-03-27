@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { type ControlElement } from "@jsonforms/core";
 import { rendererProps, useJsonFormsControl } from "@jsonforms/vue";
 import ControlWrapper from "./ControlWrapper.vue";
 import { useShadcnControl } from "../utils";
 import { Textarea } from "../../ui/textarea";
+import type { ControlElement } from "@jsonforms/core";
 
 const props = defineProps({
 	...rendererProps<ControlElement>(),

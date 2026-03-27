@@ -111,12 +111,14 @@ provide("styles", myStyles);
 </script>
 
 <template>
-	<img alt="Vue logo" src="./assets/logo.png" />
-	<h1>JSON Forms Vue 3</h1>
-	<div class="myform">
-		<json-forms :data="data" :renderers="renderers" :schema="schema" :uischema="uischema" @change="onChange" />
+	<div>
+		<img alt="Vue logo" src="./assets/logo.png" />
+		<h1>JSON Forms Vue 3</h1>
+		<div class="myform">
+			<json-forms :data="data" :renderers="renderers" :schema="schema" :uischema="uischema" @change="onChange" />
+		</div>
+		<pre>{{ data }}</pre>
 	</div>
-	<pre>{{ data }}</pre>
 </template>
 
 <style>

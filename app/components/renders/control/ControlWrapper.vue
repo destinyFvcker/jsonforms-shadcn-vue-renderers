@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { isDescriptionHidden } from "@jsonforms/core";
-import { type Options, type Styles } from "@jsonforms/vue-vanilla";
 import { computed } from "vue";
 import { Label } from "../../ui/label";
+import type { Options, Styles } from "@jsonforms/vue-vanilla";
 
 const props = withDefaults(
 	defineProps<{

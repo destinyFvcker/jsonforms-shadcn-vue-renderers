@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { type ControlElement } from "@jsonforms/core";
-import { rendererProps, useJsonFormsControl, type RendererProps } from "@jsonforms/vue";
+import type { ControlElement } from "@jsonforms/core";
+import { rendererProps, useJsonFormsControl } from "@jsonforms/vue";
 import ControlWrapper from "./ControlWrapper.vue";
 import { useShadcnControl } from "../utils";
 import { Checkbox } from "../../ui/checkbox";
@@ -23,7 +23,7 @@ const { control, controlWrapper, isFocused, appliedOptions, styles, onChange } =
 				:disabled="!control.enabled"
 				@update:model-value="onChange"
 			/>
-			<Label :for="control.id + '-input'" v-if="control.description">{{ control.description }}</Label>
+			<Label v-if="control.description" :for="control.id + '-input'">{{ control.description }}</Label>
 		</div>
 	</ControlWrapper>
 </template>

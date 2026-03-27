@@ -1,137 +1,40 @@
 <script setup lang="ts">
-import { ref, provide } from "vue";
-import { JsonForms, type JsonFormsChangeEvent } from "@jsonforms/vue";
-import { defaultStyles, mergeStyles, vanillaRenderers } from "@jsonforms/vue-vanilla";
-import { shadcnRenderers } from "~/components/renders";
-
-const renderers = Object.freeze([
-	...vanillaRenderers,
-	...shadcnRenderers,
-	// here you can add custom renderers
-]);
-
-const schema = {
-	$schema: "http://json-schema.org/draft-07/schema#",
-	title: "MyStruct",
-	type: "object",
-	properties: {
-		myBool: {
-			type: "boolean",
-		},
-		myNullableEnum: {
-			anyOf: [
-				{
-					type: "null",
-				},
-				{
-					$ref: "#/definitions/MyEnum",
-				},
-			],
-			default: null,
-		},
-		myNumber: {
-			type: "integer",
-			format: "int32",
-		},
+const pages = [
+	{ path: "/control", label: "Basic Control" },
+	{ path: "/oneof-combination-adjacently-tagged", label: "Edit adjacently tagged enum in rust" },
+	{
+		path: "/complex-nested-obj1",
+		label: "Edit complex nested object example 1",
 	},
-	additionalProperties: false,
-	required: ["myNumber", "myBool"],
-	definitions: {
-		MyEnum: {
-			anyOf: [
-				{
-					type: "string",
-				},
-				{
-					type: "object",
-					properties: {
-						floats: {
-							type: "array",
-							items: {
-								type: "number",
-								format: "float",
-							},
-						},
-					},
-					required: ["floats"],
-				},
-			],
-		},
+	{
+		path: "/oneof-combination-externally-tagged-ref",
+		label: "Edit externally tagged enum in rust without #[schemars(inline)] (not recommanded)",
 	},
-};
-
-const data = ref({
-	addressOrUser: {},
-});
-
-const onChange = (event: JsonFormsChangeEvent) => {
-	data.value = event.data;
-};
-
-// mergeStyles combines all classes from both styles definitions into one
-const myStyles = mergeStyles(defaultStyles, { control: { label: "mylabel" } });
-
-// Provide styles to child components
-provide("styles", myStyles);
+	{ path: "/oneof-combination-untagged", label: "Edit untagged enum in rust" },
+	{ path: "/rust-option", label: "Edit rust option(a special kind of anyOf)" },
+];
 </script>
 
 <template>
-	<div class="px-auto">
-		<NuxtImg src="logo.png" alt="Vue logo" />
-		<h1>JSON Forms Vue 3</h1>
-	</div>
-
-	<Card>
+	<Card class="min-h-screen">
 		<CardHeader>
-			<CardTitle>test</CardTitle>
-			<CardDescription>test schemas</CardDescription>
+			<CardTitle>Exmples</CardTitle>
+			<CardDescription>jsonfroms-shadcn-vue-renderers examples</CardDescription>
 		</CardHeader>
 		<CardContent>
-			<div class="myform">
-				<json-forms :data="data" :renderers="renderers" :schema="schema" @change="onChange" />
+			<div class="mx-auto max-w-xl space-y-4 p-10">
+				<h1 class="text-2xl font-bold">Examples</h1>
+				<nav class="flex flex-col gap-2">
+					<NuxtLink
+						v-for="page in pages"
+						:key="page.path"
+						:to="page.path"
+						class="text-primary hover:bg-muted rounded-md border px-4 py-3 transition hover:underline"
+					>
+						{{ page.label }}
+					</NuxtLink>
+				</nav>
 			</div>
 		</CardContent>
-		<CardFooter>
-			<p>Card Footer</p>
-		</CardFooter>
 	</Card>
-	<pre>{{ data }}</pre>
 </template>
-
-<style>
-#app {
-	font-family: Avenir, Helvetica, Arial, sans-serif;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-	text-align: center;
-	color: #2c3e50;
-	margin-top: 60px;
-	margin-left: 120px;
-	margin-right: 120px;
-}
-
-.mylabel {
-	color: darkslategrey;
-}
-
-.vertical-layout {
-	margin-left: 10px;
-	margin-right: 10px;
-}
-
-.myform {
-	width: 640px;
-	margin: 0 auto;
-}
-
-.text-area {
-	min-height: 80px;
-}
-
-pre {
-	background: lightcyan;
-	padding: 10px;
-	text-align: left;
-	width: 100%;
-}
-</style>

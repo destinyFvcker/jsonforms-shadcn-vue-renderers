@@ -1,5 +1,5 @@
 import { isDateTimeControl, rankWith, type JsonFormsRendererRegistryEntry } from "@jsonforms/core";
-import { default as controlRenderer } from "./DateTimeControlRenderer.vue";
+import controlRenderer from "./DateTimeControlRenderer.vue";
 
 export const entry: JsonFormsRendererRegistryEntry = {
 	renderer: controlRenderer,

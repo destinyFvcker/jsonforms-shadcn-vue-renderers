@@ -1,4 +1,4 @@
-import { type JsonFormsRendererRegistryEntry, rankWith, and, isBooleanControl, optionIs } from "@jsonforms/core";
+import { type JsonFormsRendererRegistryEntry, rankWith, isBooleanControl } from "@jsonforms/core";
 import controlRenderer from "./BooleanToggleControlRenderer.vue";
 
 export const entry: JsonFormsRendererRegistryEntry = {
