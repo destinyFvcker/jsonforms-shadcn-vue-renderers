@@ -3,5 +3,5 @@ import controlRenderer from "./OneOfEnumControlRenderer.vue";
 
 export const entry: JsonFormsRendererRegistryEntry = {
 	renderer: controlRenderer,
-	tester: rankWith(5, isOneOfEnumControl),
+	tester: rankWith(8, isOneOfEnumControl),
 };

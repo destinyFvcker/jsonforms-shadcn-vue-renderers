@@ -12,6 +12,7 @@ const pages = [
 	},
 	{ path: "/oneof-combination-untagged", label: "Edit untagged enum in rust" },
 	{ path: "/rust-option", label: "Edit rust option(a special kind of anyOf)" },
+	{ path: "/tuple-like-enum", label: "Edit tuple-like enum in rust" },
 ];
 </script>
 

@@ -1,8 +1,10 @@
 import {
 	combinatorDefaultTranslations,
+	composePaths,
 	defaultJsonFormsI18nState,
 	findUISchema,
 	getCombinatorTranslations,
+	getFirstPrimitiveProp,
 	Resolve,
 	type CombinatorKeyword,
 	type CombinatorSubSchemaRenderInfo,
@@ -12,6 +14,7 @@ import {
 	type JsonSchema,
 } from "@jsonforms/core";
 import { useVanillaControl } from "@jsonforms/vue-vanilla";
+import { cloneDeep, merge } from "lodash";
 import { computed, inject, type ComputedRef } from "vue";
 
 export const useShadcnControl = <I extends { control: any; handleChange: any }>(
@@ -27,6 +30,46 @@ export const useShadcnControl = <I extends { control: any; handleChange: any }>(
 	return {
 		...vanillaControl,
 		onChange,
+	};
+};
+
+/**
+ * Adds styles, appliedOptions and childUiSchema
+ */
+export const useShadcnArrayControl = <I extends { control: any }>(input: I) => {
+	const appliedOptions = computed(() =>
+		merge({}, cloneDeep(input.control.value.config), cloneDeep(input.control.value.uischema.options)),
+	);
+
+	const childUiSchema = computed(() =>
+		findUISchema(
+			input.control.value.uischemas,
+			input.control.value.schema,
+			input.control.value.uischema.scope,
+			input.control.value.path,
+			undefined,
+			input.control.value.uischema,
+			input.control.value.rootSchema,
+		),
+	);
+
+	const childLabelForIndex = (index: number) => {
+		const childLabelProp =
+			input.control.value.uischema.options?.childLabelProp ?? getFirstPrimitiveProp(input.control.value.schema);
+		if (!childLabelProp) {
+			return `${index}`;
+		}
+		const labelValue = Resolve.data(input.control.value.data, composePaths(`${index}`, childLabelProp));
+		if (labelValue === undefined || labelValue === null || Number.isNaN(labelValue)) {
+			return "";
+		}
+		return `${labelValue}`;
+	};
+	return {
+		...input,
+		appliedOptions,
+		childUiSchema,
+		childLabelForIndex,
 	};
 };
 
@@ -73,8 +116,6 @@ export const createCombinatorRenderInfos = (
 	path: string,
 	uischemas: JsonFormsUISchemaRegistryEntry[],
 ): CombinatorSubSchemaRenderInfo[] => {
-	console.log("combinatorSubSchemas", combinatorSubSchemas);
-
 	return combinatorSubSchemas.map((subSchema, subSchemaIndex) => {
 		const resolvedSubSchema = subSchema.$ref
 			? Resolve.schema(rootSchema, subSchema.$ref, rootSchema) || undefined

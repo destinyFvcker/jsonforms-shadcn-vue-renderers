@@ -48,7 +48,7 @@ const indexAnyOfRenderInfos: ComputedRef<
 					:value="anyOfIndex"
 					:disabled="!control.enabled"
 				>
-					{{ anyOfRenderInfo.label }}
+					{{ anyOfRenderInfo.schema.type !== "null" ? anyOfRenderInfo.label : "Null(不填)" }}
 				</TabsTrigger>
 			</TabsList>
 			<TabsContent
@@ -57,7 +57,7 @@ const indexAnyOfRenderInfos: ComputedRef<
 				:value="anyOfIndex"
 			>
 				<Card>
-					<CardHeader>
+					<CardHeader v-if="anyOfRenderInfo.schema.type !== 'null'">
 						<CardTitle>{{ anyOfRenderInfo.label }}</CardTitle>
 						<CardDescription v-if="anyOfRenderInfo.schema.description">
 							{{ anyOfRenderInfo.schema.description }}
