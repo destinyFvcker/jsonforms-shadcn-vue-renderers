@@ -13,75 +13,35 @@ const renderers = Object.freeze([
 
 const schema = {
 	$schema: "http://json-schema.org/draft-07/schema#",
-	title: "Foo + Bar的enum!",
-	description: "sss + sssa",
-	oneOf: [
+	title: "UT Enum!",
+	anyOf: [
 		{
+			title: "Foo S",
+			description: "foo",
 			type: "object",
 			properties: {
-				c: {
-					$ref: "#/definitions/FooStruct",
-				},
-				t: {
-					type: "string",
-					const: "Foo",
+				foo_foo: {
+					description: "Unique numeric key that identifies this foo within its parent collection.",
+					type: "integer",
+					format: "int32",
 				},
 			},
-			required: ["t", "c"],
+			required: ["foo_foo"],
 		},
 		{
+			title: "Bar S",
+			description: "bar",
 			type: "object",
 			properties: {
-				c: {
-					$ref: "#/definitions/BarStruct",
-				},
-				t: {
-					type: "string",
-					const: "Bar",
+				bar_foo: {
+					description: "Numeric rank or ordering index assigned to this bar record.",
+					type: "integer",
+					format: "int32",
 				},
 			},
-			required: ["t", "c"],
+			required: ["bar_foo"],
 		},
 	],
-	definitions: {
-		BarStruct: {
-			title: "BarBar的struct!",
-			description: "sssa",
-			type: "object",
-			properties: {
-				bar1: {
-					type: "string",
-				},
-				bar2: {
-					type: "string",
-				},
-				bar3: {
-					type: "string",
-				},
-			},
-			required: ["bar1", "bar2", "bar3"],
-		},
-		FooStruct: {
-			title: "FooFoo的struct!",
-			description: "sss",
-			type: "object",
-			properties: {
-				foo1: {
-					type: "integer",
-					format: "int32",
-				},
-				foo2: {
-					type: "integer",
-					format: "int32",
-				},
-				foo3: {
-					type: "integer",
-					format: "int32",
-				},
-			},
-			required: ["foo1", "foo2", "foo3"],
-		},
-	},
 };
 
 // const uischema = {

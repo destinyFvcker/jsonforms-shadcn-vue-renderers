@@ -15,7 +15,7 @@ import {
 } from "@jsonforms/core";
 import { useVanillaControl } from "@jsonforms/vue-vanilla";
 import { cloneDeep, merge } from "lodash";
-import { computed, inject, type ComputedRef } from "vue";
+import { computed, inject, provide, type ComputedRef } from "vue";
 
 export const useShadcnControl = <I extends { control: any; handleChange: any }>(
 	input: I,
@@ -47,7 +47,7 @@ export const useShadcnArrayControl = <I extends { control: any }>(input: I) => {
 			input.control.value.schema,
 			input.control.value.uischema.scope,
 			input.control.value.path,
-			undefined,
+			"VerticalLayout",
 			input.control.value.uischema,
 			input.control.value.rootSchema,
 		),

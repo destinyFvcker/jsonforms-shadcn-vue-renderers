@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { computed, inject } from "vue";
 import { rendererProps, useJsonFormsArrayControl, DispatchRenderer } from "@jsonforms/vue";
 import ArrayListElement from "./ArrayListElement.vue";
 import {
@@ -6,6 +7,7 @@ import {
 	composePaths,
 	createDefaultValue,
 	defaultJsonFormsI18nState,
+	Generate,
 	getArrayTranslations,
 	Resolve,
 	type ControlElement,
@@ -55,6 +57,23 @@ const translations = computed((): any => {
 	);
 });
 
+const isTuple = computed((): boolean => Array.isArray(control.value.schema));
+
+const schemaForIndex = (index: number): JsonSchema => {
+	if (isTuple.value) {
+		return (control.value.schema as JsonSchema[])[index]!;
+	}
+	return control.value.schema;
+};
+
+const uiSchemaForIndex = (index: number) => {
+	if (childUiSchema.value) {
+		return childUiSchema.value;
+	}
+	// For tuple schemas, generate a uischema from the per-index schema
+	return Generate.uiSchema(schemaForIndex(index), "VerticalLayout");
+};
+
 const addButtonClick = () => {
 	addItem(control.value.path, createDefaultValue(control.value.schema, control.value.rootSchema))();
 };
@@ -93,8 +112,8 @@ const addButtonClick = () => {
 			>
 				<!-- :styles="styles" -->
 				<dispatch-renderer
-					:schema="control.schema"
-					:uischema="childUiSchema"
+					:schema="schemaForIndex(index)"
+					:uischema="uiSchemaForIndex(index)"
 					:path="composePaths(control.path, `${index}`)"
 					:enabled="control.enabled"
 					:renderers="control.renderers"
