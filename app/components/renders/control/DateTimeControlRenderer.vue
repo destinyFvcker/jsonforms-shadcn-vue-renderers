@@ -93,7 +93,7 @@ const handleTimeUpdate = (value: string | number) => {
 				<Label for="date-picker" class="px-1"> Date </Label>
 				<Popover v-slot="{ close }">
 					<PopoverTrigger as-child>
-						<Button id="date-picker" variant="outline" class="w-fit justify-between font-normal">
+						<Button id="date-picker" variant="outline" :disabled="!control.enabled" class="w-fit justify-between font-normal">
 							{{ dateLabel }}
 							<ChevronDownIcon />
 						</Button>
@@ -117,6 +117,7 @@ const handleTimeUpdate = (value: string | number) => {
 				<Input
 					:id="control.id + '-time-picker'"
 					:model-value="timeInput"
+					:disabled="!control.enabled"
 					type="time"
 					step="1"
 					default-value="9:30:00"

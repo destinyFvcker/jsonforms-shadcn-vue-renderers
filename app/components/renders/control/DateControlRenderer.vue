@@ -34,6 +34,7 @@ const df = new DateFormatter("zh-CN", {
 			<PopoverTrigger as-child>
 				<Button
 					variant="outline"
+					:disabled="!control.enabled"
 					:class="cn('w-fit justify-start text-left font-normal', !control.data && 'text-muted-foreground')"
 				>
 					<CalendarIcon />

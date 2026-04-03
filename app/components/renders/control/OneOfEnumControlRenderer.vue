@@ -19,6 +19,7 @@ const { control, controlWrapper, isFocused, appliedOptions, styles, onChange } =
 		<Select
 			:model-value="control.data"
 			:multiple="false"
+			:disabled="!control.enabled"
 			@update:open="(open: boolean) => (isFocused = open)"
 			@update:model-value="onChange"
 		>
