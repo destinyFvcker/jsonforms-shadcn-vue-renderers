@@ -27,6 +27,7 @@ const selectedIndex = ref(control.value.indexOfFittingSchema || 0);
 const selectIndex = ref(selectedIndex.value);
 const newSelectedIndex = ref(0);
 const dialog = ref(false);
+const isUpdatingTab = ref(false);
 
 const indexOneOfRenderInfos: ComputedRef<
 	(CombinatorSubSchemaRenderInfo & {
@@ -47,6 +48,7 @@ const indexOneOfRenderInfos: ComputedRef<
 
 const confirmRef = useTemplateRef("confirm-button-ref");
 function handleTabChange(): void {
+	if (isUpdatingTab.value) return;
 	newSelectedIndex.value = selectIndex.value;
 	// revert back to the orginal value until the dialog is done
 	selectIndex.value = selectedIndex.value;
@@ -67,11 +69,36 @@ function confirmAction(): void {
 function cancel(): void {
 	dialog.value = false;
 }
+function getConstValues(schema: Record<string, unknown>): Record<string, unknown> {
+	const constValues: Record<string, unknown> = {};
+	const properties = schema.properties as Record<string, Record<string, unknown>> | undefined;
+	if (properties) {
+		for (const [key, propSchema] of Object.entries(properties)) {
+			if ("const" in propSchema) {
+				constValues[key] = propSchema.const;
+			}
+		}
+	}
+	return constValues;
+}
+
 function openNewTab(newIndex: number): void {
-	onChange(createDefaultValue(indexOneOfRenderInfos.value[newIndex]!.schema, control.value.rootSchema));
+	isUpdatingTab.value = true;
+	const schema = indexOneOfRenderInfos.value[newIndex]!.schema;
+	const defaultValue = createDefaultValue(schema, control.value.rootSchema);
+	const constValues = getConstValues(schema as Record<string, unknown>);
+	const newValue =
+		Object.keys(constValues).length > 0 ? { ...(defaultValue as object), ...constValues } : defaultValue;
+	console.log("New value for selected schema:", newValue);
+	onChange(newValue);
 	selectIndex.value = newIndex;
 	selectedIndex.value = newIndex;
+	nextTick(() => {
+		isUpdatingTab.value = false;
+	});
 }
+
+openNewTab(selectedIndex.value);
 </script>
 
 <template>
