@@ -2,20 +2,13 @@
 import { generateDefaultUISchema } from "@jsonforms/core";
 import { JsonForms } from "@jsonforms/vue";
 import { RotateCw, Save } from "@lucide/vue";
+import { cloneDeep } from "lodash";
 import { normalizeClass } from "vue";
 import type { JsonSchema7 } from "@jsonforms/core";
 import type { JsonFormsChangeEvent } from "@jsonforms/vue";
 import type { HTMLAttributes } from "vue";
 import { vanillaRenderers } from "@jsonforms/vue-vanilla";
 import { shadcnRenderers } from "./renders";
-
-function cloneJson<T>(value: T): T {
-	if (value == null) {
-		return value;
-	}
-
-	return JSON.parse(JSON.stringify(value)) as T;
-}
 
 const jsonFormsRenderers = Object.freeze([
 	...vanillaRenderers,
@@ -49,13 +42,13 @@ const emit = defineEmits<{
 	"update:data": [value: unknown];
 }>();
 
-const localData = ref(cloneJson(data));
+const localData = ref(cloneDeep(data));
 const errors = ref<string[]>([]);
 
 watch(
 	() => data,
 	(newValue) => {
-		localData.value = cloneJson(newValue ?? {});
+		localData.value = cloneDeep(newValue ?? {});
 	},
 	{ deep: true },
 );
@@ -101,8 +94,8 @@ function onChange(event: JsonFormsChangeEvent) {
 	const newDataStr = JSON.stringify(event.data);
 	if (newDataStr === JSON.stringify(localData.value)) return;
 
-	localData.value = cloneJson(event.data);
-	emit("update:data", cloneJson(event.data));
+	localData.value = cloneDeep(event.data);
+	emit("update:data", cloneDeep(event.data));
 }
 
 function onSubmit() {
@@ -110,7 +103,7 @@ function onSubmit() {
 		return;
 	}
 
-	emit("submit", cloneJson(localData.value));
+	emit("submit", cloneDeep(localData.value));
 }
 </script>
 
@@ -144,17 +137,17 @@ function onSubmit() {
 
 		<div class="flex justify-end gap-2">
 			<div v-if="!readonly && !hideSubmit" class="flex justify-end">
-				<Button :disabled="loading" @click="onSubmit">
+				<UiButton :disabled="loading" @click="onSubmit">
 					<RotateCw class="size-4" />
 					还原
-				</Button>
+				</UiButton>
 			</div>
 
 			<div v-if="!readonly && !hideSubmit" class="flex justify-end">
-				<Button :disabled="loading || errors.length > 0" @click="onSubmit">
+				<UiButton :disabled="loading || errors.length > 0" @click="onSubmit">
 					<Save />
 					{{ submitLabel }}
-				</Button>
+				</UiButton>
 			</div>
 		</div>
 	</div>

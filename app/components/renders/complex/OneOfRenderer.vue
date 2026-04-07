@@ -101,7 +101,6 @@ function openNewTab(newIndex: number): void {
 	const constValues = getConstValues(schema as Record<string, unknown>);
 	const newValue =
 		Object.keys(constValues).length > 0 ? { ...(defaultValue as object), ...constValues } : defaultValue;
-	console.log("New value for selected schema:", newValue);
 	onChange(newValue);
 	selectIndex.value = newIndex;
 	selectedIndex.value = newIndex;
@@ -110,7 +109,11 @@ function openNewTab(newIndex: number): void {
 	});
 }
 
-openNewTab(selectedIndex.value);
+// Only initialize with default value when there is no existing data.
+// If data already matches the selected branch, don't overwrite it.
+if (isEmpty(control.value.data)) {
+	openNewTab(selectedIndex.value);
+}
 </script>
 
 <template>

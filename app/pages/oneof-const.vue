@@ -56,7 +56,13 @@ const schema = {
 // 	],
 // };
 
-const data = ref();
+const data = ref({
+	action: "CLOSE_LONG",
+	account_id: 123,
+	gsym: 123,
+	price: 123,
+	volume: 123,
+});
 
 const onSubmit = () => {
 	console.log("Form submitted with data:", data.value);
@@ -74,7 +80,7 @@ provide("styles", myStyles);
 		<schema-form-panel
 			:schema="schema as unknown as JsonSchema7"
 			:data="data"
-			@update:data="data = $event"
+			@update:data="data = $event as typeof data"
 			@submit="onSubmit"
 		/>
 
