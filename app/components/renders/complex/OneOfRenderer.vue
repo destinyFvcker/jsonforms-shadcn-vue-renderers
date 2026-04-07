@@ -69,6 +69,18 @@ function confirmAction(): void {
 function cancel(): void {
 	dialog.value = false;
 }
+function getFirstConstValue(schema: Record<string, unknown>): string | undefined {
+	const properties = schema.properties as Record<string, Record<string, unknown>> | undefined;
+	if (properties) {
+		for (const propSchema of Object.values(properties)) {
+			if ("const" in propSchema) {
+				return String(propSchema.const);
+			}
+		}
+	}
+	return undefined;
+}
+
 function getConstValues(schema: Record<string, unknown>): Record<string, unknown> {
 	const constValues: Record<string, unknown> = {};
 	const properties = schema.properties as Record<string, Record<string, unknown>> | undefined;
@@ -118,7 +130,7 @@ openNewTab(selectedIndex.value);
 					:value="oneOfIndex"
 					:disabled="!control.enabled"
 				>
-					{{ oneOfRenderInfo.schema.title ? oneOfRenderInfo.schema.title : `选项 ${oneOfIndex + 1}` }}
+					{{ oneOfRenderInfo.schema.title || getFirstConstValue(oneOfRenderInfo.schema as Record<string, unknown>) || `选项 ${oneOfIndex + 1}` }}
 				</TabsTrigger>
 			</TabsList>
 			<TabsContent
@@ -129,7 +141,7 @@ openNewTab(selectedIndex.value);
 				<Card>
 					<CardHeader>
 						<CardTitle>{{
-							oneOfRenderInfo.schema.title ? oneOfRenderInfo.schema.title : `选项 ${oneOfIndex + 1}`
+							oneOfRenderInfo.schema.title || getFirstConstValue(oneOfRenderInfo.schema as Record<string, unknown>) || `选项 ${oneOfIndex + 1}`
 						}}</CardTitle>
 						<CardDescription v-if="oneOfRenderInfo.schema.description">
 							{{ oneOfRenderInfo.schema.description }}
